@@ -1,0 +1,7 @@
+the simple idea is a n^4 algorihm, since each matrix is n by n.  For each element
+in one martix check against every element in the other.
+
+Ray's idea was to treat each matrix as a single array of lengtbh n^2 and sort
+each of those with merge sort, then pop off elements from the ends of each of
+the sorted arrays.  
+    O(nlogn) + O(n^2) where n is actually the new length of the single array
