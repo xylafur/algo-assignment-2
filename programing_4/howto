@@ -1,0 +1,13 @@
+How to get page size:
+    man 2 getpagesize
+
+Page replacement policy:
+    Linux seems to use LRU    
+
+Size of active memory set:
+    vmstat -a
+        virtual memory statistics
+
+    Also look at the contents of """  /proc/meminfo  """
+        This has even more details about VM
+    
