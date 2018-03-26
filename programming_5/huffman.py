@@ -1,3 +1,5 @@
+from heap import *
+
 def get_character_count(str):
     """
         Returns the count of all characters in a string
@@ -38,6 +40,35 @@ def frequency_from_count(count):
     return {char: count[char] / count['total'] for char in count.keys() \
             if char != 'total'}
 
+class HuffmanTree:
+    def __init__(self, frequency):
+        chars = [HufChar(char, freq) for char, freq in frequency.items()]
+        self.heap = HufMinHeap()
+        for char in chars:
+            self.heap.add_element(char)
+
+        print(self.heap.height)
+
+        while self.heap.height > 1:
+            left, right = self.heap.pop_min(), self.heap.pop_min()
+            new = HufChar(left.char + right.char, left.freq + right.freq)
+            new.left = left
+            new.right = right
+            self.heap.add_element(new)
+
+    def get_codes(self):
+        def _get_codes(codes, node, code):
+            if node is None:
+                return
+            if node.left is None and node.right is None:
+                codes[node.char] = code
+            _get_codes(codes, node.left, code + "0")
+            _get_codes(codes, node.right, code + "1")
+
+        codes = {}
+        _get_codes(codes, self.heap.pop_min(), "")
+        return codes
+
 def build_huffman_tree(freq):
     """
         Arguments:
@@ -72,3 +103,7 @@ if __name__ == '__main__':
     freq = frequency_from_count(count)
     print(count)
     print(freq)
+    huff = HuffmanTree(freq)
+
+    print(huff.heap)
+    print(huff.get_codes())
