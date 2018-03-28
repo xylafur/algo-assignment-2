@@ -69,19 +69,6 @@ class HuffmanTree:
         _get_codes(codes, self.heap.pop_min(), "")
         return codes
 
-def build_huffman_tree(freq):
-    """
-        Arguments:
-            count (:class:`dict`): The count of characters from a string
-
-        Returns:
-            (:class:`dict`): The frequency as a dictionary
-
-        Complexity:
-            O(n), where n is the length of the string
-    """
-    pass
- 
 def string_to_huffman(str):
     """
         This function takes in a string of arbitrary length and returns an 
@@ -94,16 +81,13 @@ def string_to_huffman(str):
             (:class:`str`): The string representation of a binary huffman code
 
         Complexity:
+            O(nlogn)
     """
-    pass
+    count = get_character_count(str)
+    freq = frequency_from_count(count)
+    huff = HuffmanTree(freq)
+    return huff.get_codes()
 
 if __name__ == '__main__':
     string = input("enter a string: ")
-    count = get_character_count(string)
-    freq = frequency_from_count(count)
-    print(count)
-    print(freq)
-    huff = HuffmanTree(freq)
-
-    print(huff.heap)
-    print(huff.get_codes())
+    print(string_to_huffman(string))
