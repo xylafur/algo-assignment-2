@@ -1,108 +1,75 @@
-#include<sys/time.h>
-#include<stdio.h>
-#include <stdlib.h>
 
-//for this problem I will use char matricies to save space
+#include <sys/time.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 //Initialize's a matrix of size rows by columns with values between 1 and 10
-void initialize_matrix(char ** matrix, int rows, int cols)
+int* initialize_matrix(int rows, int cols)
 {
-    int i = 0, r, c;
-    for(r = 0; r < rows; r++){
-        for(c = 0; c < cols; c++){
-            matrix[r][c] = i++ % 10;
-
-        }
-    }
+    int *mat = malloc(rows * cols * sizeof(int));
+    int r, c;
+    for(r = 0; r < rows; r++)
+        for(c = 0; c < cols; c++)
+            mat[r * rows + c] = rand() % 10;
+    return mat;
 }
 
-void row_major_multiplication(char ** A, char ** B, char ** C, int N)
+void row_major_addition(int *A, int *B, int *C, int N)
 {
     int r, c;
-    for(r = 0; r < N; r++){
-        for(c = 0; c < N; c++){
-            //D[r][c] = A[r][c] + B[r][c];
-            C[r][c] = A[r][c] + B[r][c];
-        }
-    }
+    for(r = 0; r < N; r++)
+        for(c = 0; c < N; c++)
+            C[r * N + c] = A[r * N + c] + B[r * N + c];
 }
 
-void column_major_multiplication(char ** A, char ** B, char ** C, int N)
+void col_major_addition(int *A, int *B, int *C, int N)
 {
     int r, c;
-    for(c = 0; c < N; c++){
-        for(r= 0; r < N; r++){
-            //D[r][c] = A[r][c] + B[r][c];
-            C[r][c] = A[r][c] + B[r][c];
-        }
-    }
+    for(c = 0; c < N; c++)
+        for(r= 0; r < N; r++)
+            C[r * N + c] = A[r * N + c] + B[r * N + c];
 }
 
 //takes in the matrix multiplication function and its params
-void matrix_multiplication_timing_function(void(*func)(char**,char**,char**,int),
-                                           char **A, char **B, char ** C, int N)
+void matrix_addition_timer(void(*func)(int*,int*,int*,int),
+                           int *A, int *B, int * C, int N)
 {
-    struct timeval start, end;
-    gettimeofday(&start, NULL);
+    clock_t time = clock();
     func(A, B, C, N);
-    gettimeofday(&end, NULL);
-    printf("took %f seconds and %f microseconds\n", end.tv_sec - start.tv_sec, 
-           end.tv_usec - start.tv_usec);
-}
+    time = clock() - time;
 
-#define NUMBER_N 9
-unsigned int n_sizes [NUMBER_N] = {128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768};
+    double secs = (double)time / CLOCKS_PER_SEC;
+    printf("\tN:%d\tT:%.10f\n", N, secs);
+}
 
 int main()
 {
-    void (*row_maj)(char**,char**,char**,int);
-    void (*col_maj)(char**,char**,char**,int);
-    row_maj = &row_major_multiplication;
-    col_maj = &column_major_multiplication;
-
-    char **A, **B, **C;
-
-    int i, o;
-    unsigned int N;
-
     printf("Running matrix multiplication program\n");
 
-    for(i = 0; i < NUMBER_N; i++){
-        N = n_sizes[i];
-        A = malloc(sizeof(char *) * N);
-        B = malloc(sizeof(char *) * N);
-        C = malloc(sizeof(char *) * N);
-        for(o = 0; o < N; o++){
-            A[o] = malloc(sizeof(char) * N);
-            B[o] = malloc(sizeof(char) * N);
-            C[o] = malloc(sizeof(char) * N);
-        }
-        initialize_matrix(A, N, N);
-        initialize_matrix(B, N, N);
-        initialize_matrix(C, N, N);
+    unsigned int test_sizes[] = {
+        128, 256, 512, 1024, 2048,
+        4096, 8192, 16384, 32768
+    };
+    unsigned int N;
+    int *A, *B, *C;
 
-        printf("Row major matrix multiplication for N = %d ", N);
-        row_maj(A, B, C, N);
+    int i, o;
+    for(i = 0; i < sizeof(test_sizes)/sizeof(int); i++){
+        N = test_sizes[i];
+        A = initialize_matrix(N, N);
+        B = initialize_matrix(N, N);
+        C = initialize_matrix(N, N);
 
-        initialize_matrix(A, N, N);
-        initialize_matrix(B, N, N);
-        initialize_matrix(C, N, N);
+        printf("Row major matrix addition:\n", N);
+        matrix_addition_timer(&row_major_addition, A, B, C, N);
 
-        printf("Column major matrix multiplication for N = %d ", N);
-        col_maj(A, B, C, N);
-
-        for(o = 0; o < N; o++){
-            free(A[o]);
-            free(B[o]);
-            free(C[o]);
-        }
- 
+        printf("Column major matrix addition:\n", N);
+        matrix_addition_timer(&col_major_addition, A, B, C, N);
 
         free(A);
         free(B);
         free(C);
     }
-
-
 }
 
