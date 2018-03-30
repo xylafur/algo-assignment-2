@@ -49,7 +49,7 @@ int main(int argc, char ** argv)
 {
     puts("Running matrix multiplication program\n");
 
-    int n_tests = 4;
+    int n_tests = 9;
     if (argc > 1)
         n_tests = ((n_tests = atoi(argv[1])) > 0 && n_tests < 9) ? n_tests : 4;
 

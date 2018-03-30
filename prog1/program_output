@@ -1,0 +1,37 @@
+Running matrix multiplication program
+Row major matrix addition:
+	N:128	T:0.0003420000
+Column major matrix addition:
+	N:128	T:0.0004900000
+Row major matrix addition:
+	N:256	T:0.0017800000
+Column major matrix addition:
+	N:256	T:0.0043350000
+Row major matrix addition:
+	N:512	T:0.0012890000
+Column major matrix addition:
+	N:512	T:0.0047870000
+Row major matrix addition:
+	N:1024	T:0.0039740000
+Column major matrix addition:
+	N:1024	T:0.0417150000
+Row major matrix addition:
+	N:2048	T:0.0152210000
+Column major matrix addition:
+	N:2048	T:0.2640730000
+Row major matrix addition:
+	N:4096	T:0.0577550000
+Column major matrix addition:
+	N:4096	T:1.0704340000
+Row major matrix addition:
+	N:8192	T:0.2292680000
+Column major matrix addition:
+	N:8192	T:4.4621750000
+Row major matrix addition:
+	N:16384	T:0.9229190000
+Column major matrix addition:
+	N:16384	T:29.6334640000
+Row major matrix addition:
+	N:32768	T:3.8234460000
+Column major matrix addition:
+	N:32768	T:225.9014590000
