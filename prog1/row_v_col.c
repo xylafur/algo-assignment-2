@@ -35,31 +35,46 @@ void col_major_addition(int *A, int *B, int *C, int N)
 void matrix_addition_timer(void(*func)(int*,int*,int*,int),
                            int *A, int *B, int * C, int N)
 {
-    clock_t time = clock();
+    struct timeval start, end;
+    gettimeofday(&start, NULL);
     func(A, B, C, N);
-    time = clock() - time;
+    gettimeofday(&end, NULL);
 
-    double secs = (double)time / CLOCKS_PER_SEC;
-    printf("\tN:%d\tT:%.10f\n", N, secs);
+    double usecs = end.tv_sec * 1000000 + end.tv_usec;
+    usecs -= start.tv_sec * 1000000 + start.tv_usec;
+    printf("  Time:%.2f microseconds\n", usecs);
 }
 
-int main()
+int main(int argc, char ** argv)
 {
-    printf("Running matrix multiplication program\n");
+    puts("Running matrix multiplication program\n");
+
+    int n_tests = 4;
+    if (argc > 1)
+        n_tests = ((n_tests = atoi(argv[1])) > 0 && n_tests < 9) ? n_tests : 4;
 
     unsigned int test_sizes[] = {
-        128, 256, 512, 1024, 2048,
-        4096, 8192, 16384, 32768
+        128,    // 0
+        256,    // 1
+        512,    // 2
+        1024,   // 3
+        2048,   // 4
+        4096,   // 5
+        8192,   // 6
+        16384,  // 7
+        32768   // 8
     };
+
     unsigned int N;
     int *A, *B, *C;
 
     int i, o;
-    for(i = 0; i < sizeof(test_sizes)/sizeof(int); i++){
+    for(i = 0; i < n_tests; i++){
         N = test_sizes[i];
         A = initialize_matrix(N, N);
         B = initialize_matrix(N, N);
         C = initialize_matrix(N, N);
+        printf("Test #%d, Matrix Length N: %d\n", i, N);
 
         printf("Row major matrix addition:\n", N);
         matrix_addition_timer(&row_major_addition, A, B, C, N);
@@ -70,6 +85,9 @@ int main()
         free(A);
         free(B);
         free(C);
+        puts("");
     }
+
+    return 0;
 }
 
