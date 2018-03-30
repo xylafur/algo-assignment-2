@@ -24,7 +24,20 @@ void add_triples(int * N, int M[1024][3], int n)
     N[M[ii][0]* n + M[ii][1]] += M[ii][2];
 }
 
-#define TEN_TO_THE_6 (10000000)
+//just a function to try and avoid compiler cleverness
+void print_10_random_n_values(int * N, int n)
+{
+  int ii, x, y;
+  printf("Printing 10 random values form N: ");
+  for(ii = 0; ii < 10; ii++){
+    x = rand() %n;
+    y = rand() %n;
+    printf("%d ", N[x * n  + y]);
+  }
+  printf("\n");
+}
+
+#define TEN_TO_THE_6 (1000000)
 #define NUM_M 3
 #define NUM_N 6
 
@@ -37,7 +50,7 @@ int main()
   long long m, temp_m;
   int * N;
   int M [1024][3];
-  long long total_microseconds;
+  unsigned long long total_microseconds;
 
   struct timeval begin, end;
 
@@ -68,7 +81,11 @@ int main()
                               TEN_TO_THE_6;
         temp_m -= 1024;
       }
-      printf("It took %lld microseconds\n\n", total_microseconds);
+      printf("It took %llu seconds and %llu microseconds\n", 
+             total_microseconds / TEN_TO_THE_6, 
+             total_microseconds % TEN_TO_THE_6);
+      print_10_random_n_values(N, n);
+      printf("\n");
     }
   }
 
