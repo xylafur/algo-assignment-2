@@ -1,0 +1,41 @@
+The way the problem is worded, and has been discussed in class, we must compare the elements of A with the elements of B by changing values in A and seeing if values in B change as well.
+
+a) For this problem, since we will have to iterate through the entire matrix to check every value and determine if any elements are the same.  Because of this the lowest possible bound for this problem would be n^2.
+
+b) My algorithm is as follows:
+    Create a Matrix C that is an exact copy of B, but non of the elements are the same (a copy by value)
+    Iterate through A, anc change every value some some arbitrary amount or in some way
+    Iterate through B and C in the same way and compare every element.  If any of the elements of B and C differ then there is at least one element of A present in B.
+
+Time complexity:
+    The creation of C would be O(1) but copying every value from B to C would require iteration through B, meaning O(n^2)
+    To change every element of A by some ammount, we will have to access each of the n^2 elements.  Chaning each element would be O(1),  meaning that would have a time complexity of O(n^2) to alter every element of A.
+    B and C would be iterated through at the exact same time.  Since we have to access every element and they are both of size n^2, that would mean a time complexity of O(n^2).
+
+#this algorithm returns true if any element of A is an element of B, false otherwise
+compare_matricies(A, B, n):
+    C = empty n by n  Matrix
+    for r in range(n):
+        for c in range(n):
+            C[r][c] = B[r][c]
+            #when we do this, we ensure that we are copying the value not the actual element
+
+    for r in range(n):
+        for c in range(n):
+            A[r][c]++
+            #this does not have to be an increment, we can change the data in a way that is appropriate for the type
+
+    for r in range(n):
+        for c in range(n):
+            if B[r][c] != C[r][c]:
+                return True
+
+    return False
+ 
+            
+
+
+        
+    
+
+

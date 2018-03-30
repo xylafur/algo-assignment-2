@@ -1,0 +1,2 @@
+#!/usr/bin/gnuplot
+plot "data.dat" using 1:2 title 'Timings' with linespoints

@@ -1,0 +1,79 @@
+The way that I will acheive O(1) timecomplexity for find(n/3) is through a hack
+of sorts.  We will find the n/3rd largest while we insert or delete elements, and
+set a value of the object to that value.  This will not change the complexity of
+insert or delete, because they can still both be done in O(log(n))
+
+type AVLNode:
+    AVLNode right = Null 
+    AVLNode left = Null
+    AVLNode parent = Null
+    int multiplicity = 0
+    int sum = 0#the multiplicity of this node plus the multiplicity of all of its children
+    bool has_left = false
+    bool has_right = false
+    int value 
+
+type SpecialAVL:
+    AVLNode root = Null
+    int n_over_3_largest
+
+    func insert(val)
+    func delete(val)
+    func find()
+    func _hack_find() #helper function for insert and delete
+    func balance_tree(node)
+
+func insert(int val):
+    AVLNode current = root
+    bool balance = true
+
+    while True:
+        current.sum++
+        if val == current.val:
+            current.multiplicity++
+            balance = false
+            break
+
+        if val > current.val:
+            if current.has_right:
+                current = current.right
+            else:
+                current.has_right = true
+                current.right = new AVLNode(multiplicity=1, sum=1, value=val)
+                current.right.parent = current
+                break
+
+        else if val < current.val:
+            if current.has_left:
+                current = current.left
+            else:
+                current.has_left = true
+                current.right = new AVLNode(multiplicity=1, sum=1, value=val)
+                current.left.parent = current
+                break
+    if balance:
+        balance_tree(current)
+    _hack_find()
+    
+    
+func delete(int val):
+    current = root
+
+
+
+func _hack_find():
+    current = root
+    k = ceil(root.sum / 3)
+    while True:
+        if k <= current.right.sum:
+            current = current.right
+        else if k == current.multiplicity:
+            n_over_3_largest = current.value
+        else:
+            k -= (current.multiplicity + current.right.sum)
+            current = current.left
+
+func find():
+    return n_over_3_largest
+
+

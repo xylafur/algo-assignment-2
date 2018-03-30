@@ -17,13 +17,15 @@ def do_operations(C):
 modifiers = [.01, .5, .6, .7, .8, .9, .95, .99, 1, 1.01, 1.1, 1.5, 2, 5, 10, 50]
 
 if __name__ == '__main__':
-    M = int(argv[1]) * 1024**3
+    org_M = int(argv[1]) * 1024**3
 
-    print("Using active memory size of {} bytes".format(M))
+    times = []
+
+    print("Using active memory size of {} bytes".format(org_M))
 
     #we have to modify M so that C will actually be the number of bytes we expect
     int_size = getsizeof(200)
-    M = M // int_size
+    M = org_M // int_size
 
     for mod in modifiers:
         this_m = int(mod * M)
@@ -38,4 +40,11 @@ if __name__ == '__main__':
         end = time.time()
 
         print("took {} seconds".format(end - start))
+
+        times.append( (int(org_M * mod), end - start))
+        
+
+    print("\n\n#bytes        time")
+    for time in times:
+        print("{}            {}".format(time[0], time[1]))
 
