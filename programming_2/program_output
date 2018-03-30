@@ -1,0 +1,72 @@
+Running algorithm for n = 15 and m = 1024
+It took 0 seconds and 6 microseconds
+Printing 10 random values form N: 3109 2886 5119 1939 3071 3538 4444 2139 3742 2943 
+
+Running algorithm for n = 64 and m = 1024
+It took 0 seconds and 6 microseconds
+Printing 10 random values form N: 248 909 0 0 0 0 0 0 20 0 
+
+Running algorithm for n = 256 and m = 1024
+It took 0 seconds and 8 microseconds
+Printing 10 random values form N: 0 0 0 0 0 0 748 0 0 0 
+
+Running algorithm for n = 1024 and m = 1024
+It took 0 seconds and 24 microseconds
+Printing 10 random values form N: 0 0 0 0 0 0 0 0 0 0 
+
+Running algorithm for n = 4096 and m = 1024
+It took 0 seconds and 65 microseconds
+Printing 10 random values form N: 0 0 0 0 0 0 0 0 0 0 
+
+Running algorithm for n = 16384 and m = 1024
+It took 0 seconds and 70 microseconds
+Printing 10 random values form N: 0 0 0 0 0 0 0 0 0 0 
+
+Running algorithm for n = 15 and m = 1677721600
+It took 10 seconds and 453138 microseconds
+Printing 10 random values form N: -483008182 -483337084 -483971076 -480398878 -481437037 -478847558 -480002335 -481888633 -479810015 -480474751 
+
+Running algorithm for n = 64 and m = 1677721600
+It took 10 seconds and 576880 microseconds
+Printing 10 random values form N: 209413347 209485611 209586644 209381146 209645141 209736776 209843916 209472854 209097609 209066313 
+
+Running algorithm for n = 256 and m = 1677721600
+It took 12 seconds and 632910 microseconds
+Printing 10 random values form N: 13096451 12935738 13120132 13060433 13093472 13071289 13128976 13039598 13067626 13001234 
+
+Running algorithm for n = 1024 and m = 1677721600
+It took 32 seconds and 554697 microseconds
+Printing 10 random values form N: 859148 814771 830839 815312 810788 816923 829586 774110 808581 759669 
+
+Running algorithm for n = 4096 and m = 1677721600
+It took 72 seconds and 999752 microseconds
+Printing 10 random values form N: 43899 49942 56046 60597 50128 40922 59978 48669 57686 43253 
+
+Running algorithm for n = 16384 and m = 1677721600
+It took 86 seconds and 764429 microseconds
+Printing 10 random values form N: 1475 3909 5466 3205 1169 1770 2773 2797 2056 3484 
+
+Running algorithm for n = 15 and m = 13421772800
+It took 83 seconds and 921635 microseconds
+Printing 10 random values form N: 442382671 440658758 446249255 437188178 450769389 445091086 445652682 447647611 445220501 448319125 
+
+Running algorithm for n = 64 and m = 13421772800
+It took 85 seconds and 326390 microseconds
+Printing 10 random values form N: 1677787481 1675107606 1676970502 1675672844 1676402689 1674899875 1675560063 1674996754 1676343977 1674034385 
+
+Running algorithm for n = 256 and m = 13421772800
+It took 100 seconds and 895489 microseconds
+Printing 10 random values form N: 104703274 105184630 104605234 105277391 104551992 104598172 104965864 105025218 105084658 104789398 
+
+Running algorithm for n = 1024 and m = 13421772800
+It took 279 seconds and 503558 microseconds
+Printing 10 random values form N: 6553413 6568458 6449340 6542045 6616793 6571047 6599961 6583484 6512644 6584320 
+
+Running algorithm for n = 4096 and m = 13421772800
+It took 620 seconds and 22860 microseconds
+Printing 10 random values form N: 402561 393189 403778 373260 394484 405258 408283 418705 406709 393939 
+
+Running algorithm for n = 16384 and m = 13421772800
+It took 700 seconds and 796313 microseconds
+Printing 10 random values form N: 20832 19963 18841 19249 32305 23097 25003 31716 24270 29357 
+
