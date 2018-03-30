@@ -17,7 +17,7 @@ def do_operations(C):
 modifiers = [.01, .5, .6, .7, .8, .9, .95, .99, 1, 1.01, 1.1, 1.5, 2, 5, 10, 50]
 
 if __name__ == '__main__':
-    org_M = int(argv[1]) * 1024**3
+    org_M = float(argv[1]) * 1024**3
 
     times = []
 
@@ -33,13 +33,14 @@ if __name__ == '__main__':
         C = [i % 200 for i in range(this_m)]
         assert(len(C) == this_m)
 
-        print("Running opearations on C of size {}, ".format(mod), end='')
+        print("Running opearations on C of size {} bytes ({:.4f} gb), ".format(
+            this_m, this_m / (1024**3)), end='')
         
         start = time.time()
         do_operations(C)
         end = time.time()
 
-        print("took {} seconds".format(end - start))
+        print("took {:.8f} seconds".format(end - start))
 
         times.append( (int(org_M * mod), end - start))
         
