@@ -59,10 +59,12 @@ int main(int argc, char ** argv) {
     long long total_microseconds;
     cout << "RUNNING PROGRAM" << endl;
 
-    total_microseconds = get_average_time(1000);
+    total_microseconds = get_average_time(5);
 
-    printf("Took a total of %lld seconds and %lld, microseconds for 100000 insertions and deletions\n",
-           (long long)total_microseconds / TEN_E_6, total_microseconds % TEN_E_6);
+    printf("The average time for 10000 insertions and deletions took %lld seconds ", 
+           (long long)total_microseconds / TEN_E_6);
+    printf("and %lld, microseconds for 100000 insertions and deletions\n",
+            total_microseconds % TEN_E_6);
     return 0;
 }
 

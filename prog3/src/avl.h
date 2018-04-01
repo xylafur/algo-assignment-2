@@ -13,6 +13,8 @@
 #include <type_traits>
 using namespace std;
 
+#define M 3650722200
+
 template <class T>
 struct TreeNode {
     TreeNode *left = nullptr, *right = nullptr;
@@ -23,18 +25,19 @@ struct TreeNode {
     int balance = 0;
         // balance factor
 
-    char *matrix __attribute__((used)) = 0;
+    int *matrix __attribute__((used)) = 0;
     size_t mat_size = 0;
 
     TreeNode(const T& info) {
         this->info = info;
         // Modification for problem
         switch (info % 3) {
-            case 0: mat_size = 2 << 19; break; // 2^20
-            case 1: mat_size = 3 << 18; break; // 2^19 + 2^18 = 3*2^18
-            case 2: mat_size = 3 << 17; break; // 2^18 + 2^17 = 3*2^17
+            case 0: mat_size = M * 3/4; break; // 2^20
+            case 1: mat_size = M; break; // 2^19 + 2^18 = 3*2^18
+            case 2: mat_size = M * 5/4; break; // 2^18 + 2^17 = 3*2^17
         }
-        matrix = new char[mat_size];
+        matrix = new int[mat_size];
+        memset(matrix, rand() % 256, sizeof(int) * mat_size);
     }
     TreeNode(TreeNode<T> &&move) {
         left = move.left;
