@@ -25,25 +25,43 @@ long long run_program() {
         if (insert) tree.insert(s);
         else tree.remove(s);
         gettimeofday(&end, NULL);
-        tree.print_tree();
-        cout << endl;
+
+        //tree.print_tree();
+        //cout << endl;
 
         total_microseconds += (long long)(end.tv_usec - start.tv_usec);
         total_microseconds += (long long)(end.tv_sec - start.tv_sec) * TEN_E_6;
 
     }
-    tree.print_tree();
+    //tree.print_tree();
 
     return total_microseconds;
 }
 
+long long get_average_time(int num_iterations)
+{
+    int ii;
+    unsigned long long total_microseconds = 0, temp_total_microseconds = 0;
+    for(ii = 0; ii < num_iterations; ii++){
+        total_microseconds += run_program();
+        //overflow
+        if(temp_total_microseconds > total_microseconds){
+            return -1;
+        }
+        temp_total_microseconds = total_microseconds;
+    }
+    return total_microseconds / num_iterations;
+}
+
 int main(int argc, char ** argv) {
-    srand(198712345);
+    //srand(198712345);
+    srand(time(NULL));
     long long total_microseconds;
     cout << "RUNNING PROGRAM" << endl;
-    total_microseconds = run_program();
 
-    printf("Took a total of %lld seconds and %lld, microseconds\n",
+    total_microseconds = get_average_time(1000);
+
+    printf("Took a total of %lld seconds and %lld, microseconds for 100000 insertions and deletions\n",
            (long long)total_microseconds / TEN_E_6, total_microseconds % TEN_E_6);
     return 0;
 }
