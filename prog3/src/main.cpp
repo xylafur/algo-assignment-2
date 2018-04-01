@@ -10,8 +10,8 @@ using namespace std;
 #define TEN_E_6 (1000000)
 
 //returns the total time taken to insert and delete
-long long run_program() {
-    AVLTree<int> tree;
+long long run_program(unsigned long long m_size) {
+    AVLTree<int> tree(m_size);
     int s;
     bool insert = false;
     long long total_microseconds = 0;
@@ -38,12 +38,12 @@ long long run_program() {
     return total_microseconds;
 }
 
-long long get_average_time(int num_iterations)
+long long get_average_time(int num_iterations, unsigned long long m_size)
 {
     int ii;
     unsigned long long total_microseconds = 0, temp_total_microseconds = 0;
     for(ii = 0; ii < num_iterations; ii++){
-        total_microseconds += run_program();
+        total_microseconds += run_program(m_size);
         //overflow
         if(temp_total_microseconds > total_microseconds){
             return -1;
@@ -57,9 +57,25 @@ int main(int argc, char ** argv) {
     //srand(198712345);
     srand(time(NULL));
     long long total_microseconds;
+
+    unsigned long long m_size;
+    int mm, ss;
     cout << "RUNNING PROGRAM" << endl;
 
-    total_microseconds = get_average_time(5);
+    printf("enter memory size in gb: ");
+    scanf("%d", &mm);
+
+    printf("%d enter your swap size in gb: ", mm);
+    scanf("%d", &ss);
+
+
+    //total bytes at this poing
+    m_size =(mm) * 1024*1024 *256/ (35 * 16 * 16);
+
+
+    printf("Running for averge memory consumption of %llu\n", m_size);
+
+    total_microseconds = get_average_time(5, m_size);
 
     printf("The average time for 10000 insertions and deletions took %lld seconds ", 
            (long long)total_microseconds / TEN_E_6);

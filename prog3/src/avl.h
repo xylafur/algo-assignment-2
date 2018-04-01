@@ -25,19 +25,22 @@ struct TreeNode {
     int balance = 0;
         // balance factor
 
-    int *matrix __attribute__((used)) = 0;
+    long long *matrix __attribute__((used)) = 0;
     size_t mat_size = 0;
 
-    TreeNode(const T& info) {
+    TreeNode(const T& info, unsigned long long m_size) {
         this->info = info;
         // Modification for problem
         switch (info % 3) {
-            case 0: mat_size = M * 3/4; break; // 2^20
-            case 1: mat_size = M; break; // 2^19 + 2^18 = 3*2^18
-            case 2: mat_size = M * 5/4; break; // 2^18 + 2^17 = 3*2^17
+            case 0: mat_size = m_size * 3/4; break; // 2^20
+            case 1: mat_size = m_size; break; // 2^19 + 2^18 = 3*2^18
+            case 2: mat_size = m_size * 5/4; break; // 2^18 + 2^17 = 3*2^17
         }
-        matrix = new int[mat_size];
-        memset(matrix, rand() % 256, sizeof(int) * mat_size);
+        printf("m_size: %llu\n", m_size);
+        printf("Original M: %llu\n", M);
+ 
+        matrix = new long long [(size_t)mat_size];
+        memset(matrix, rand() % 256, sizeof(long long) * mat_size);
     }
     TreeNode(TreeNode<T> &&move) {
         left = move.left;
@@ -143,7 +146,7 @@ protected:
         }
     }
 
-    bool _avl_insert(const T& elem, TreeNode<T> **droot)
+    bool _avl_insert(const T& elem, TreeNode<T> **droot, unsigned long long m_size)
     {
         TreeNode<T> **dptr = droot;
         stack<TreeNode<T>**> path;
@@ -158,7 +161,7 @@ protected:
                 return 0;
             }
         }
-        (*dptr) = new TreeNode<T>(elem);
+        (*dptr) = new TreeNode<T>(elem, this->m_size);
         path.push(dptr);
         n_nodes++;
 
@@ -167,7 +170,7 @@ protected:
         return 1;
     }
 
-    bool _avl_delete(const T& elem, TreeNode<T> **droot)
+    bool _avl_delete(const T& elem, TreeNode<T> **droot, unsigned long long m_size)
     {
         TreeNode<T> **dptr = droot;
         stack<TreeNode<T>**> path;
@@ -217,6 +220,9 @@ protected:
 
 public:
     AVLTree() {}
+    AVLTree(long long m_size) {
+        this->m_size = m_size;
+    }
     AVLTree(AVLTree<T> &&move)
     {
         this->n_nodes = move.n_nodes;
@@ -235,11 +241,11 @@ public:
     }
 
     inline bool insert(const T& elem) {
-        return _avl_insert(elem, &root);
+        return _avl_insert(elem, &root,this->m_size);
     }
 
     inline bool remove(const T& elem) {
-        return _avl_delete(elem, &root);
+        return _avl_delete(elem, &root, this->m_size);
     }
 
     // prints triangle representation of this tree
@@ -292,6 +298,7 @@ private:
     TreeNode<T> *root = 0;
     size_t n_nodes = 0;
     size_t rot = 0;
+    unsigned long long m_size;
 };
 
 
