@@ -30,12 +30,9 @@ struct TreeNode {
         this->info = info;
         // Modification for problem
         switch (info % 3) {
-            /*
             case 0: mat_size = 2 << 19; break; // 2^20
             case 1: mat_size = 3 << 18; break; // 2^19 + 2^18 = 3*2^18
             case 2: mat_size = 3 << 17; break; // 2^18 + 2^17 = 3*2^17
-            */
-            default: mat_size = 1;
         }
         matrix = new char[mat_size];
     }

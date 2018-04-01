@@ -6,23 +6,18 @@
 #include "avl.h"
 using namespace std;
 
-
+// time this
 void run_program() {
     AVLTree<int> tree;
-    char buff[1024];
     int s;
-    for (int i = 0; i < 50; i++) {
+    bool insert = false;
+    for (int i = 0; i < 1000000; ++i) {
+        insert = (tree.size() < 50 && (rand() & 1)) ? true : !tree.size();
         s = rand() % 100;
-        tree.insert(s);
-        tree.is_balanced();
+        if (insert) tree.insert(s);
+        else tree.remove(s);
     }
     tree.print_tree();
-    while (tree.size()) {
-        s = rand() % 100;
-        tree.remove(s);
-        tree.print_tree();
-        tree.is_balanced();
-    }
 }
 
 int main(int argc, char ** argv) {
