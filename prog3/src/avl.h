@@ -119,18 +119,24 @@ protected:
         TreeNode<T> **dptr;
         while (path.size()) {
             dptr = path.top(); path.pop();
+
             (*dptr)->heights(0, 0); // simulaneously sets balance and height
             (*dptr)->child_balances(&lb, &rb);
 
             if ((*dptr)->balance > 1) { // skewed left
-                if (lb < 0) (*dptr)->left = rotate_left((*dptr)->left);
+                if (lb < -1) { // left child skewed right
+                    (*dptr)->left = rotate_left((*dptr)->left);
+                }
                 //(*dptr)->heights(0, 0); // simulaneously sets balance and height
                 *dptr = rotate_right(*dptr);
             } else if ((*dptr)->balance < -1) { // skewed right
-                if (rb > 0) (*dptr)->right = rotate_right((*dptr)->right);
+                if (rb > 1) { // right child skewed left
+                    (*dptr)->right = rotate_right((*dptr)->right);
+                }
                 //(*dptr)->heights(0, 0); // simulaneously sets balance and height
                 *dptr = rotate_left(*dptr);
             }
+
         }
     }
 
@@ -178,12 +184,12 @@ protected:
 
         n_nodes--;
         if ((*dptr)->left == nullptr || (*dptr)->right == nullptr) {
-            TreeNode<T> *living_child = (*dptr)->left
-                                     ? (*dptr)->left : (*dptr)->right;
+            TreeNode<T> *living_child = (*dptr)->left ?
+                                        (*dptr)->left : (*dptr)->right;
 
-            (*dptr)->left = (*dptr)->right = nullptr;
-            delete *dptr;
+            (*dptr)->left = (*dptr)->right = nullptr; delete *dptr;
             *dptr = living_child;
+            if (living_child) path.push(dptr);
 
         } else { // both are children are non null
 

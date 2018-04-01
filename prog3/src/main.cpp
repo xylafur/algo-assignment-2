@@ -18,16 +18,18 @@ long long run_program() {
     struct timeval start, end;
 
     for (int i = 0; i < 1000000; ++i) {
-        insert = (tree.size() < 50 && (rand() & 1)) ? true : !tree.size();
+        insert = (tree.size() < 25 && (rand() & 1)) ? true : !tree.size();
         s = rand() % 100;
 
         gettimeofday(&start, NULL);
         if (insert) tree.insert(s);
         else tree.remove(s);
         gettimeofday(&end, NULL);
+        tree.print_tree();
+        cout << endl;
 
         total_microseconds += (long long)(end.tv_usec - start.tv_usec);
-        total_microseconds += (long long)(end.tv_sec - start.tv_sec) / TEN_E_6;
+        total_microseconds += (long long)(end.tv_sec - start.tv_sec) * TEN_E_6;
 
     }
     tree.print_tree();
@@ -36,6 +38,7 @@ long long run_program() {
 }
 
 int main(int argc, char ** argv) {
+    srand(198712345);
     long long total_microseconds;
     cout << "RUNNING PROGRAM" << endl;
     total_microseconds = run_program();
