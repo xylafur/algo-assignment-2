@@ -13,7 +13,8 @@
 #include <type_traits>
 using namespace std;
 
-#define M 3650722200
+#define M (365072220/2)
+#define PAGE_SIZE (2 * 512)
 
 template <class T>
 struct TreeNode {
@@ -29,6 +30,8 @@ struct TreeNode {
     size_t mat_size = 0;
 
     TreeNode(const T& info) {
+        unsigned long ii;
+        unsigned long long conversion;
         this->info = info;
         // Modification for problem
         switch (info % 3) {
@@ -37,7 +40,11 @@ struct TreeNode {
             case 2: mat_size = M * 5/4; break; // 2^18 + 2^17 = 3*2^17
         }
         matrix = new int[mat_size];
-        memset(matrix, rand() % 256, sizeof(int) * mat_size);
+        conversion = PAGE_SIZE;
+
+        for(ii = 0; ii < mat_size / conversion; ii++){
+            memset(matrix + (ii * conversion), rand() % 256, sizeof(int));
+        }
     }
     TreeNode(TreeNode<T> &&move) {
         left = move.left;
